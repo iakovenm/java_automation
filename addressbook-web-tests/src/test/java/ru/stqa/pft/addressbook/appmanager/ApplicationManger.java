@@ -1,4 +1,5 @@
 package ru.stqa.pft.addressbook.appmanager;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -27,7 +28,6 @@ public class ApplicationManger {
     public void stop() {
         wd.quit();
     }
-
 
 
     public GroupHelper getGroupHelper() {

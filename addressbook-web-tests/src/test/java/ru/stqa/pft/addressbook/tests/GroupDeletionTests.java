@@ -1,4 +1,4 @@
-package ru.stqa.pft.addressbook;
+package ru.stqa.pft.addressbook.tests;
 
 import org.testng.annotations.*;
 
@@ -9,7 +9,7 @@ public class GroupDeletionTests extends TestBase {
         app.getNavigationHelper().gotoGroupPage();
         app.getGroupHelper().selectGroup();
         app.getGroupHelper().deleteSelectedGroups();
-        app.getGroupHelper().returnToGroupPage();
+        app.getNavigationHelper().gotoGroupPage();
     }
 
 }
