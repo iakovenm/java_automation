@@ -51,9 +51,11 @@ public class ContactHelper extends HelperBase {
         click(By.id("MassCB"));
     }
 
-    public void initEditFirstContact() {
+    public void initEditContact(int index) {
+        wd.findElements(By.xpath("//tr[@name='entry']")).get(index);
         click(By.xpath("//img[@alt='Edit']"));
     }
+
 
     public void submitContactModification() {
         click(By.name("update"));
