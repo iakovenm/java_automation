@@ -4,14 +4,14 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 
 public class AllContactDeletionTests extends TestBase {
-    @Test
+    @Test (enabled = false)
     public void allContactDeletion() {
-        app.getNavigationHelper().goToHomePage();
-        if (!app.getContactHelper().isThereAContact()) {
-            app.getContactHelper().createContact(new ContactData("Maria", "Iakovenko", "+48666777545", "iakovenko.mariia3@gmail.com", "test1"), true);
+        app.goTo().homePage();
+        if (!app.contact().isThereAContact()) {
+            app.contact().create(new ContactData().withFirstname("Maria").withLastname("Iakovenko").withMobilephone("+48666777545").withEmail("iakovenko.mariia3@gmail.com").withGroup("test1"), true);
         }
-        app.getContactHelper().selectAllContacts();
-        app.getContactHelper().deleteContact();
-        app.getNavigationHelper().goToHomePage();
+        app.contact().selectAllContacts();
+        app.contact().deleteContact();
+        app.goTo().homePage();
     }
 }
