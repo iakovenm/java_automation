@@ -8,9 +8,7 @@ import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -51,7 +49,7 @@ public class ContactHelper extends HelperBase {
     public void deleteContact() {
         click(By.xpath("//input[@value='Delete']"));
         wd.switchTo().alert().accept();
-       // contactCache = null;
+        // contactCache = null;
         click(By.linkText("home"));
     }
 
@@ -94,28 +92,23 @@ public class ContactHelper extends HelperBase {
 
     private Contacts contactCache = null;
 
-  public Contacts all() {
+    public Contacts all() {
 
-      if (contactCache != null) {
-         return new Contacts(contactCache);
-     }
-          contactCache = new Contacts();
+        if (contactCache != null) {
+            return new Contacts(contactCache);
+        }
+        contactCache = new Contacts();
         List<WebElement> rows = wd.findElements(By.name("entry"));
-        for (WebElement row: rows) {
+        for (WebElement row : rows) {
             List<WebElement> cells = row.findElements(By.tagName("td"));
             String lastname = cells.get(1).getText();
             String name = cells.get(2).getText();
             String address = cells.get(3).getText();
-            String[] emails = cells.get(4).getText().split("\n");
-            String[] phones =cells.get(5).getText().split("\n");
+            String allEmails = cells.get(4).getText();
+            String allPhones = cells.get(5).getText();
             int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("value"));
-            contactCache.add(new ContactData().withId(id).
-                    withFirstname(name).withLastname(lastname).
-                   withHomephone(phones[0]).
-                    withMobilephone(phones[1]).withWorkphone(phones[2]).
-                  withEmail(emails[0]).
-                   withEmail2(emails[1]).withEmail3(emails[2]).
-                    withAddress(address)   );
+            contactCache.add(new ContactData().withId(id).withFirstname(name).withLastname(lastname).withAllPhones(allPhones).withAllEmails(allEmails).
+                    withAddress(address));
         }
         return new Contacts(contactCache);
 
@@ -125,13 +118,13 @@ public class ContactHelper extends HelperBase {
         initEditContactById(contact.getId());
         String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
         String lastmane = wd.findElement(By.name("lastname")).getAttribute("value");
-        String home  = wd.findElement(By.name("home")).getAttribute("value");
-        String mobile  = wd.findElement(By.name("mobile")).getAttribute("value");
-        String work  = wd.findElement(By.name("work")).getAttribute("value");
-        String address =wd.findElement(By.name("address")).getAttribute("value");
+        String home = wd.findElement(By.name("home")).getAttribute("value");
+        String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
+        String work = wd.findElement(By.name("work")).getAttribute("value");
+        String address = wd.findElement(By.name("address")).getAttribute("value");
         String email = wd.findElement(By.name("email")).getAttribute("value");
-        String email2 =  wd.findElement(By.name("email2")).getAttribute("value");
-        String email3 =  wd.findElement(By.name("email3")).getAttribute("value");
+        String email2 = wd.findElement(By.name("email2")).getAttribute("value");
+        String email3 = wd.findElement(By.name("email3")).getAttribute("value");
         wd.navigate().back();
         return new ContactData().withId(contact.getId()).withFirstname(firstname)
                 .withLastname(lastmane).withMobilephone(mobile).withHomephone(home).

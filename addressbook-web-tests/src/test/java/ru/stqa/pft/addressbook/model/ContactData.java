@@ -6,16 +6,20 @@ public class ContactData {
 
 
     private int id = Integer.MAX_VALUE;
-    private  String firstname;
-    private  String lastname;
-    private  String mobilephone;
-    private  String homephone;
-    private  String workphone;
-    private  String address;
+    private String firstname;
+    private String lastname;
+    private String mobilephone;
+    private String allPhones;
+    private String homephone;
+    private String allEmails;
+    private String workphone;
+    private String address;
     private String email;
     private String email2;
+
+
     private String email3;
-    private  String group;
+    private String group;
 
     @Override
     public String toString() {
@@ -64,6 +68,7 @@ public class ContactData {
     public String getGroup() {
         return group;
     }
+
     public String getAddress() {
         return address;
     }
@@ -76,21 +81,30 @@ public class ContactData {
         return email3;
     }
 
-    public String getHomephone() {
-        return homephone;
+    public String getAllPhones() {
+        return allPhones;
     }
+
     public String getWorkphone() {
         return workphone;
     }
 
+    public String getAllEmails() {
+        return allEmails;
+    }
 
 
-    public ContactData withId(int id)
-    {
+    public String getHomephone() {
+        return homephone;
+    }
+
+
+    public ContactData withId(int id) {
         this.id = id;
         return this;
     }
-    public ContactData  withFirstname(String firstname) {
+
+    public ContactData withFirstname(String firstname) {
         this.firstname = firstname;
         return this;
     }
@@ -105,12 +119,18 @@ public class ContactData {
         return this;
     }
 
-    public ContactData withHomephone(String homephone) {
-        this.homephone = homephone;
+    public ContactData withAllPhones(String allPhones) {
+        this.allPhones = allPhones;
         return this;
     }
+
     public ContactData withWorkphone(String workphone) {
         this.workphone = workphone;
+        return this;
+    }
+
+    public ContactData withHomephone(String homephone) {
+        this.homephone = homephone;
         return this;
     }
 
@@ -119,10 +139,16 @@ public class ContactData {
         return this;
     }
 
+    public ContactData withAllEmails(String allEmails) {
+        this.allEmails = allEmails;
+        return this;
+    }
+
     public ContactData withGroup(String group) {
         this.group = group;
         return this;
     }
+
     public ContactData withAddress(String address) {
         this.address = address;
         return this;

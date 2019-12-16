@@ -5,10 +5,10 @@ import java.util.Objects;
 public class GroupData {
 
 
-    private int id =  Integer.MAX_VALUE;
+    private int id = Integer.MAX_VALUE;
     private String name;
-    private  String header;
-    private  String footer;
+    private String header;
+    private String footer;
 
 
     public int getId() {
@@ -46,6 +46,7 @@ public class GroupData {
         this.id = id;
         return this;
     }
+
     public GroupData withName(String name) {
         this.name = name;
         return this;
