@@ -6,7 +6,7 @@ import java.io.File;
 import java.util.Objects;
 
 public class ContactData {
-
+    @Expose
     private int id = Integer.MAX_VALUE;
     @Expose
     private String firstname;
@@ -28,6 +28,7 @@ public class ContactData {
     private String email2;
     @Expose
     private String email3;
+    @Expose
     private String group;
     private File photo;
 
