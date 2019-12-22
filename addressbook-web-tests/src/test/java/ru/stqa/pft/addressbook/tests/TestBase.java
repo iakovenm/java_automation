@@ -1,15 +1,15 @@
 package ru.stqa.pft.addressbook.tests;
 
 import org.openqa.selenium.remote.BrowserType;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
-import ru.stqa.pft.addressbook.appmanager.ApplicationManger;
+import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
 
 
 public class TestBase {
 
-    protected static final ApplicationManger app = new ApplicationManger(BrowserType.CHROME);
+    protected static final ApplicationManager app =
+            new ApplicationManager(System.getProperty("browser", BrowserType.CHROME));
 
     @BeforeSuite(alwaysRun = true)
     public void setUp() throws Exception {

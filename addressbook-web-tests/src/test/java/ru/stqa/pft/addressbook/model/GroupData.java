@@ -5,6 +5,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 import java.util.Objects;
+
 @XStreamAlias("group")
 public class GroupData {
     @XStreamOmitField

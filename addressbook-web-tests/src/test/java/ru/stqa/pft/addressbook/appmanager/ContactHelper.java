@@ -12,6 +12,8 @@ import java.util.List;
 
 public class ContactHelper extends HelperBase {
 
+    private Contacts contactCache = null;
+
     public ContactHelper(WebDriver wd) {
         super(wd);
     }
@@ -90,8 +92,6 @@ public class ContactHelper extends HelperBase {
     public boolean isThereAContact() {
         return isElementPresent(By.name("selected[]"));
     }
-
-    private Contacts contactCache = null;
 
     public Contacts all() {
 

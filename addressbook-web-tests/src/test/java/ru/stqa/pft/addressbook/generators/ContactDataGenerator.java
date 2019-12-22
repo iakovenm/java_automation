@@ -16,19 +16,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContactDataGenerator {
-    @Parameter(names="-c",description="Group count")
+    @Parameter(names = "-c", description = "Group count")
     public int count;
-    @Parameter(names="-f",description="Target file")
+    @Parameter(names = "-f", description = "Target file")
     public String file;
-    @Parameter(names="-d",description="Data format")
+    @Parameter(names = "-d", description = "Data format")
     public String format;
 
-    public static void main (String[] args) throws IOException {
+    public static void main(String[] args) throws IOException {
         ContactDataGenerator generator = new ContactDataGenerator();
         JCommander jCommander = new JCommander(generator);
         try {
             jCommander.parse(args);
-        }catch (ParameterException ex ){
+        } catch (ParameterException ex) {
             jCommander.usage();
             return;
 
@@ -39,8 +39,8 @@ public class ContactDataGenerator {
 
     private void run() throws IOException {
         List<ContactData> contacts = generateContacts(count);
-        if (format.equals("csv")){
-            saveAsCsv(contacts,new File( file));
+        if (format.equals("csv")) {
+            saveAsCsv(contacts, new File(file));
         } else if (format.equals("xml")) {
             saveAsXml(contacts, new File(file));
         } else if (format.equals("json")) {
@@ -70,23 +70,24 @@ public class ContactDataGenerator {
 
     private void saveAsCsv(List<ContactData> contacts, File file) throws IOException {
         Writer writer = new FileWriter(file);
-        for (ContactData contact:contacts){
+        for (ContactData contact : contacts) {
             writer.write(String.format("%s;%s;%s\n", contact.getFirstname(), contact.getLastname(),
-                    contact.getMobilephone(),contact.getAddress(),contact.getEmail(),contact.getEmail2(), contact.getEmail3(),
-                    contact.getHomephone(),contact.getWorkphone()));
+                    contact.getMobilephone(), contact.getAddress(), contact.getEmail(), contact.getEmail2(), contact.getEmail3(),
+                    contact.getHomephone(), contact.getWorkphone()));
         }
         writer.close();
 
     }
-    private List<ContactData> generateContacts(int count){
+
+    private List<ContactData> generateContacts(int count) {
         List<ContactData> contacts = new ArrayList<ContactData>();
-        for (int i = 0; i<count;i++){
+        for (int i = 0; i < count; i++) {
             contacts.add(new ContactData().withFirstname(String.format("firstname %s", i))
-                    .withLastname(String.format("lastname %s", i)).withAddress(String.format("address %s",i))
-                    .withHomephone(String.format("homephone %s",i)).
-                            withMobilephone(String.format("mobilephone %s",i)).withWorkphone(String.format("workphone %s",i)).
-                            withEmail(String.format("email %s",i)).withEmail2(String.format("email2 %s",i)).
-                            withEmail3(String.format("email3 %s",i)).withGroup(String.format("group %s",i)));
+                    .withLastname(String.format("lastname %s", i)).withAddress(String.format("address %s", i))
+                    .withHomephone(String.format("homephone %s", i)).
+                            withMobilephone(String.format("mobilephone %s", i)).withWorkphone(String.format("workphone %s", i)).
+                            withEmail(String.format("email %s", i)).withEmail2(String.format("email2 %s", i)).
+                            withEmail3(String.format("email3 %s", i)).withGroup(String.format("test %s", i)));
         }
         return contacts;
     }
