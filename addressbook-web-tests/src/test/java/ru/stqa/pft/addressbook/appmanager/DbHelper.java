@@ -42,8 +42,7 @@ return new Groups(result);
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         //List <GroupData> result = session.createQuery( "from GroupData " ).list();
-        List<ContactData> result = session.createQuery( "from ContactData " ).list();
-        //where deprecated = '0000-00-00'
+        List<ContactData> result = session.createQuery( "from ContactData where deprecated = '0000-00-00'" ).list();
         // for ( GroupData group :  result ) {
         //for ( ContactData contact :  result ) {
         //System.out.println(group);

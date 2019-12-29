@@ -1,11 +1,14 @@
 package ru.stqa.pft.addressbook.model;
 
 import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "addressbook")
@@ -49,6 +52,15 @@ public class ContactData {
     @Expose
     @Type(type = "text")
     private String email3;
+    @Transient
+    @Column(name= "photo")
+    @Type(type = "text")
+    private String  photo;
+   @ManyToMany(fetch = FetchType.EAGER)
+   @JoinTable(name = "address_in_groups", joinColumns = @JoinColumn(name = "id"),
+           inverseJoinColumns =@JoinColumn(name = "group_id"))
+    private Set<GroupData> groups = new HashSet<GroupData>();
+
 
     @Override
     public boolean equals(Object o) {
@@ -72,13 +84,6 @@ public class ContactData {
         return Objects.hash(id, firstname, lastname, mobilephone, homephone, workphone, address, email, email2, email3);
     }
 
-    @Expose
-    @Transient
-    private String group;
-    @Transient
-    @Column(name= "photo")
-    @Type(type = "text")
-    private String  photo;
 
     public File getPhoto() {
         return new File (photo);
@@ -89,15 +94,6 @@ public class ContactData {
         return this;
 
 
-    }
-
-    @Override
-    public String toString() {
-        return "ContactData{" +
-                "id='" + id + '\'' +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                '}';
     }
 
     public int getId() {
@@ -120,8 +116,8 @@ public class ContactData {
         return email;
     }
 
-    public String getGroup() {
-        return group;
+    public Groups getGroups() {
+        return new Groups( groups);
     }
 
     public String getAddress() {
@@ -199,10 +195,6 @@ public class ContactData {
         return this;
     }
 
-    public ContactData withGroup(String group) {
-        this.group = group;
-        return this;
-    }
 
     public ContactData withAddress(String address) {
         this.address = address;
@@ -218,6 +210,27 @@ public class ContactData {
 
     public ContactData withEmail3(String email3) {
         this.email3 = email3;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "ContactData{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", mobilephone='" + mobilephone + '\'' +
+                ", homephone='" + homephone + '\'' +
+                ", workphone='" + workphone + '\'' +
+                ", address='" + address + '\'' +
+                ", email='" + email + '\'' +
+                ", email2='" + email2 + '\'' +
+                ", email3='" + email3 + '\'' +
+                '}';
+    }
+
+    public ContactData inGroup(GroupData group){
+        groups.add(group);
         return this;
     }
 }

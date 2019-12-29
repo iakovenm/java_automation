@@ -2,10 +2,13 @@ package ru.stqa.pft.addressbook.tests;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -36,14 +39,16 @@ public class ContactCreationTests extends TestBase {
     }
 
     @Test(dataProvider = "validContactsFromJson")
-    public void testContactCreation(ContactData contact) throws Exception {
+   public void testContactCreation(ContactData contact) throws Exception {
+    //public void testContactCreation() throws Exception {
+       // Groups groups = app.db().groups();
         app.goTo().homePage();
         Contacts before = app.db().contacts();
         app.goTo().contactCreationPage();
-        /*File photo = new File("src/test/resources/pastedImage.png");
-        ContactData contact = new ContactData().withFirstname("Maria").withLastname("Iakovenko").
-                withMobilephone("+48666777545").
-                withEmail("iakovenko.mariia3@gmail.com").withGroup("test1").withPhoto(photo);*/
+        //File photo = new File("src/test/resources/pastedImage.png");
+       // ContactData contact = new ContactData().withFirstname("Maria").withLastname("Iakovenko").
+               // withMobilephone("+48666777545").
+              //  withEmail("iakovenko.mariia3@gmail.com").inGroup(groups.iterator().next());
         app.contact().create((contact), true);
         app.goTo().homePage();
         Contacts after = app.db().contacts();

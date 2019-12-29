@@ -8,7 +8,7 @@ public class AllContactDeletionTests extends TestBase {
     public void allContactDeletion() {
         app.goTo().homePage();
         if (!app.contact().isThereAContact()) {
-            app.contact().create(new ContactData().withFirstname("Maria").withLastname("Iakovenko").withMobilephone("+48666777545").withEmail("iakovenko.mariia3@gmail.com").withGroup("test1"), true);
+            app.contact().create(new ContactData().withFirstname("Maria").withLastname("Iakovenko").withMobilephone("+48666777545").withEmail("iakovenko.mariia3@gmail.com"), true);
         }
         app.contact().selectAllContacts();
         app.contact().deleteContact();

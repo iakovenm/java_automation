@@ -16,7 +16,7 @@ public class ContactDataCheckTests extends TestBase {
         app.goTo().homePage();
         if (app.contact().all().size() == 0) {
             app.contact().create(new ContactData().withFirstname("Maria").withLastname("Iakovenko").
-                    withMobilephone("+48666777545").withEmail("iakovenko.mariia3@gmail.com").withGroup("test1"), true);
+                    withMobilephone("+48666777545").withEmail("iakovenko.mariia3@gmail.com"), true);
         }
 
     }
