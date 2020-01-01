@@ -64,6 +64,22 @@ public class ContactHelper extends HelperBase {
         click(By.linkText("home"));
     }
 
+    private void addToGroup(ContactData contactData) {
+        String groupName = contactData.getGroups().iterator().next().getName();
+       new Select(wd.findElement(By.name("to_group"))).
+                selectByVisibleText(groupName);
+        click(By.name("add"));
+
+
+    }
+
+    private void removeFromGroup(ContactData contactData) {
+        addToGroup(contactData);
+        click(By.partialLinkText("group page"));
+        click(By.name("remove"));
+
+    }
+
     public void selectAllContacts() {
         click(By.id("MassCB"));
     }
@@ -141,6 +157,20 @@ public class ContactHelper extends HelperBase {
                         withEmail2(email2).withEmail3(email3);
 
     }
+
+    public void addContactToGroup(ContactData contact) {
+        selectContactById(contact.getId());
+        addToGroup(contact);
+
+
+    }
+
+    public void removeContactFromGroup(ContactData contact) {
+        selectContactById(contact.getId());
+        removeFromGroup(contact);
+    }
+
+
 }
 
 

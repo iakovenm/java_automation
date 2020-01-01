@@ -40,7 +40,7 @@ public class HbConnectionTest {
         //for ( GroupData group :  result ) {
         for ( ContactData contact :  result ) {
            // System.out.println(group);
-            System.out.println(contact);
+           // System.out.println(contact);
             System.out.println(contact.getGroups());
         }
         session.getTransaction().commit();
