@@ -10,6 +10,7 @@ import ru.stqa.pft.addressbook.model.Contacts;
 
 import java.util.List;
 
+
 public class ContactHelper extends HelperBase {
 
     private Contacts contactCache = null;
@@ -64,17 +65,16 @@ public class ContactHelper extends HelperBase {
         click(By.linkText("home"));
     }
 
-    private void addToGroup(ContactData contactData) {
-        String groupName = contactData.getGroups().iterator().next().getName();
+    private void addToGroup(String name) {
        new Select(wd.findElement(By.name("to_group"))).
-                selectByVisibleText(groupName);
+                selectByVisibleText(name);
         click(By.name("add"));
 
 
     }
 
-    private void removeFromGroup(ContactData contactData) {
-        addToGroup(contactData);
+    private void removeFromGroup(ContactData contactData, String group) {
+        addToGroup(group);
         click(By.partialLinkText("group page"));
         click(By.name("remove"));
 
@@ -158,16 +158,16 @@ public class ContactHelper extends HelperBase {
 
     }
 
-    public void addContactToGroup(ContactData contact) {
+    public void addContactToGroup(ContactData contact, String group) {
         selectContactById(contact.getId());
-        addToGroup(contact);
+        addToGroup(group);
 
 
     }
 
-    public void removeContactFromGroup(ContactData contact) {
+    public void removeContactFromGroup(ContactData contact, String group) {
         selectContactById(contact.getId());
-        removeFromGroup(contact);
+        removeFromGroup(contact, group);
     }
 
 
