@@ -36,6 +36,9 @@ public class ContactRemoveFromGroupTest extends TestBase {
         String removedGroupName = removedGroup.getName();
         Contacts before = app.db().contacts();
         ContactData addedToGroupContact = before.iterator().next();
+
+
+
         ContactData contact = new ContactData().withId(addedToGroupContact.getId()).withFirstname(addedToGroupContact.getFirstname()).
                 withLastname(addedToGroupContact.getLastname()).withMobilephone(addedToGroupContact.getMobilephone()).
                 withWorkphone(addedToGroupContact.getWorkphone()).withHomephone(addedToGroupContact.getHomephone()).

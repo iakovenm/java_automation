@@ -69,8 +69,6 @@ public class ContactHelper extends HelperBase {
        new Select(wd.findElement(By.name("to_group"))).
                 selectByVisibleText(name);
         click(By.name("add"));
-
-
     }
 
     private void removeFromGroup(ContactData contactData, String group) {
@@ -111,6 +109,7 @@ public class ContactHelper extends HelperBase {
     public void delete(ContactData contact) {
         selectContactById(contact.getId());
         deleteContact();
+        contactCache = null;
     }
 
     public boolean isThereAContact() {
@@ -136,7 +135,6 @@ public class ContactHelper extends HelperBase {
                     withAddress(address));
         }
         return new Contacts(contactCache);
-
     }
 
     public ContactData infoFromEditForm(ContactData contact) {
@@ -155,22 +153,19 @@ public class ContactHelper extends HelperBase {
                 .withLastname(lastmane).withMobilephone(mobile).withHomephone(home).
                         withWorkphone(work).withAddress(address).withEmail(email).
                         withEmail2(email2).withEmail3(email3);
-
     }
 
     public void addContactToGroup(ContactData contact, String group) {
         selectContactById(contact.getId());
         addToGroup(group);
-
-
+        contactCache = null;
     }
 
     public void removeContactFromGroup(ContactData contact, String group) {
         selectContactById(contact.getId());
         removeFromGroup(contact, group);
+        contactCache = null;
     }
-
-
 }
 
 

@@ -24,6 +24,7 @@ public class ContactAddToGroupTest extends TestBase {
                     withAddress("podlanska").withEmail2("email2").withEmail3("email3").
                     withHomephone("homephone").withWorkphone("workphone"), true);
         }
+
         if (groups.size() == 0) {
             app.goTo().groupPage();
             app.group().create(new GroupData().withName("test1").withHeader("header").withFooter("footer"));
@@ -32,6 +33,11 @@ public class ContactAddToGroupTest extends TestBase {
             app.goTo().groupPage();
             app.group().create(new GroupData().withName("test5").withHeader("header").withFooter("footer"));
         } else if (contacts.iterator().next().getGroups().contains(groups.iterator().next())) {
+            for(ContactData contact:contacts){
+                if(!contact.getGroups().contains((groups.iterator().next()))){
+                    return;
+                }
+            }
             app.goTo().groupPage();
             app.group().create((new GroupData().withName("test5").withHeader("header").withFooter("footer")));
 
@@ -46,14 +52,22 @@ public class ContactAddToGroupTest extends TestBase {
         String addedGroupName = addedGroup.getName();
         Contacts before = app.db().contacts();
         ContactData addedToGroupContact = before.iterator().next();
+        for(ContactData c: before){
+        if (!addedToGroupContact.getGroups().contains(addedGroup)){
+        }else{         before.iterator().next();
+        }
+        }
         ContactData contact = new ContactData().withId(addedToGroupContact.getId()).withFirstname(addedToGroupContact.getFirstname()).
                 withLastname(addedToGroupContact.getLastname()).withMobilephone(addedToGroupContact.getMobilephone()).
                 withWorkphone(addedToGroupContact.getWorkphone()).withHomephone(addedToGroupContact.getHomephone()).
                 withAddress(addedToGroupContact.getAddress()).withEmail(addedToGroupContact.getEmail()).
                 withEmail2(addedToGroupContact.getEmail2()).withEmail3(addedToGroupContact.getEmail3()).inGroup(addedGroup);
+        Groups beforeGroups = contact.getGroups();
         app.goTo().homePage();
         app.contact().addContactToGroup(contact, addedGroupName);
         Groups afterGroups = contact.getGroups();
-        assertThat(afterGroups.contains(addedGroup), equalTo(true));
+       //assertThat(afterGroups.contains(addedGroup), equalTo(true));
+        assertThat(afterGroups, equalTo(beforeGroups.withAdded(addedGroup)));
+
     }
 }
