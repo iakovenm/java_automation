@@ -72,8 +72,8 @@ public class ContactHelper extends HelperBase {
     }
 
     private void removeFromGroup(ContactData contactData, String group) {
-        addToGroup(group);
-        click(By.partialLinkText("group page"));
+        new Select(wd.findElement(By.name("group"))).
+                selectByVisibleText(group);
         click(By.name("remove"));
 
     }

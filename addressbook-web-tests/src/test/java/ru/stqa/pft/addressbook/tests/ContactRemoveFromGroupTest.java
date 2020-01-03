@@ -26,6 +26,15 @@ public class ContactRemoveFromGroupTest extends TestBase {
         if (groups.size() == 0) {
             app.goTo().groupPage();
             app.group().create(new GroupData().withName("test1").withHeader("header").withFooter("footer"));
+        } else if (!contacts.iterator().next().getGroups().contains(groups.iterator().next())) {
+            for(ContactData contact:contacts){
+                if(contact.getGroups().contains((groups.iterator().next()))){
+                    return;
+                }
+            }
+            app.goTo().groupPage();
+            app.group().create((new GroupData().withName("test5").withHeader("header").withFooter("footer")));
+
         }
     }
 
@@ -36,9 +45,11 @@ public class ContactRemoveFromGroupTest extends TestBase {
         String removedGroupName = removedGroup.getName();
         Contacts before = app.db().contacts();
         ContactData addedToGroupContact = before.iterator().next();
-
-
-
+        for(ContactData c: before){
+            if (addedToGroupContact.getGroups().contains(removedGroup)){
+            }else{         before.iterator().next();
+            }
+        }
         ContactData contact = new ContactData().withId(addedToGroupContact.getId()).withFirstname(addedToGroupContact.getFirstname()).
                 withLastname(addedToGroupContact.getLastname()).withMobilephone(addedToGroupContact.getMobilephone()).
                 withWorkphone(addedToGroupContact.getWorkphone()).withHomephone(addedToGroupContact.getHomephone()).
