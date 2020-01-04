@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.system.id="GRADLE" type="JAVA_MODULE" version="4">
+  <component name="ExternalSystem" externalSystem="GRADLE" externalSystemModuleGroup="" externalSystemModuleVersion="unspecified" linkedProjectId="mantis-tests" linkedProjectPath="$MODULE_DIR$/../../mantis-tests" rootProjectPath="$MODULE_DIR$/../../mantis-tests" />
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../mantis-tests">
+      <excludeFolder url="file://$MODULE_DIR$/../../mantis-tests/.gradle" />
+      <excludeFolder url="file://$MODULE_DIR$/../../mantis-tests/build" />
+      <excludeFolder url="file://$MODULE_DIR$/../../mantis-tests/out" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
