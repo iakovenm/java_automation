@@ -8,6 +8,7 @@ dependencies {
     implementation 'org.seleniumhq.selenium:selenium-java:4.0.0-alpha-3'
     implementation 'org.hamcrest:hamcrest:2.2'
     implementation 'org.apache.httpcomponents:httpclient-osgi:4.5.10'
+    implementation 'commons-net:commons-net:3.6'
 
 }
    test {
