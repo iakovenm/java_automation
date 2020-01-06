@@ -16,11 +16,13 @@ public class ApplicationManager {
 
     private final Properties properties;
    private WebDriver wd;
-
-
     private String browser;
     private RegistrationHelper registrationHelper;
     private FtpHelper ftp;
+    private MailHelper mailHelper;
+    private JamesHelper jamesHelper;
+    private ResetPasswordHelper resetPasswordHelper;
+    private DbHelper dbHelper;
 
 
     public ApplicationManager(String browser){
@@ -53,6 +55,12 @@ public class ApplicationManager {
         }
         return registrationHelper;
     }
+    public ResetPasswordHelper resetPassword() {
+        if (resetPasswordHelper ==null){
+            resetPasswordHelper= new  ResetPasswordHelper(this);
+        }
+        return resetPasswordHelper;
+    }
 
     public FtpHelper ftp(){
         if (ftp ==null){
@@ -75,4 +83,21 @@ public class ApplicationManager {
         }
         return wd;
 }
+    public MailHelper mail(){
+        if (mailHelper ==null){
+            mailHelper = new MailHelper(this);
+        }
+        return mailHelper;
+    }
+
+    public JamesHelper james(){
+        if (jamesHelper ==null){
+            jamesHelper = new JamesHelper(this);
+        }
+        return jamesHelper;
+    }
+    public DbHelper db() {
+        return dbHelper;
+    }
+
 }

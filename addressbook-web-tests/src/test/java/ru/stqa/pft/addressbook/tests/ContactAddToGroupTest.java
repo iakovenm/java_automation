@@ -7,15 +7,17 @@ import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 
 public class ContactAddToGroupTest extends TestBase {
 
-    @BeforeMethod
+   @BeforeMethod
     public void ensurePreconditions() {
         Groups groups = app.db().groups();
         Contacts contacts = app.db().contacts();
@@ -31,10 +33,17 @@ public class ContactAddToGroupTest extends TestBase {
             app.goTo().groupPage();
             app.group().create(new GroupData().withName("test1").withHeader("header").withFooter("footer"));
             return;
-        } else if (groups.size() == contacts.iterator().next().getGroups().size()) {
+        }
+        for (ContactData c: contacts) {
+        if (c.getGroups().size()<groups.size()){
+            return;
+        }else {
             app.goTo().groupPage();
-            app.group().create(new GroupData().withName("test5").withHeader("header").withFooter("footer"));
-        } else if (contacts.iterator().next().getGroups().contains(groups.iterator().next())) {
+            app.group().create(new GroupData().withName("test2").withHeader("header").withFooter("footer"));
+        }
+        }
+
+         if (contacts.iterator().next().getGroups().contains(groups.iterator().next())) {
             for(ContactData contact:contacts){
                 if(!contact.getGroups().contains((groups.iterator().next()))){
                     return;
@@ -53,24 +62,31 @@ public class ContactAddToGroupTest extends TestBase {
         GroupData addedGroup = new GroupData().withId(groups.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId()).withName(groups.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getName());
         String addedGroupName = addedGroup.getName();
         Contacts before = app.db().contacts();
-       // ContactData addedToGroupContact = before.stream().map((g) -> new ContactData().
+        //ContactData addedToGroupContact = before.stream().filter((m) ->m.inGroup(addedGroup)).findAny();
          //       withId(g.getId()).withFirstname(g.getFirstname()).withLastname(g.getLastname()).inGroup(g.getGroups().removeIf()).collect(Collectors.toSet())));
-        ContactData addedToGroupContact = before.iterator().next();
-        for(ContactData c: before){
-        if (!addedToGroupContact.getGroups().contains(addedGroup)){
-        }else{         before.iterator().next();
+       //ContactData addedToGroupContact = before.iterator().next();
+
         }
        }
-        ContactData contact = new ContactData().withId(addedToGroupContact.getId()).withFirstname(addedToGroupContact.getFirstname()).
-                withLastname(addedToGroupContact.getLastname()).withMobilephone(addedToGroupContact.getMobilephone()).
-                withWorkphone(addedToGroupContact.getWorkphone()).withHomephone(addedToGroupContact.getHomephone()).
-                withAddress(addedToGroupContact.getAddress()).withEmail(addedToGroupContact.getEmail()).
-                withEmail2(addedToGroupContact.getEmail2()).withEmail3(addedToGroupContact.getEmail3()).inGroup(addedGroup);
-        Groups beforeGroups = contact.getGroups();
-        app.goTo().homePage();
-        app.contact().addContactToGroup(contact, addedGroupName);
-        Groups afterGroups = contact.getGroups();
-        assertThat(afterGroups, equalTo(beforeGroups.withAdded(addedGroup)));
+       // ContactData contact = new ContactData().withId(addedToGroupContact.getId()).withFirstname(addedToGroupContact.getFirstname()).
+               // withLastname(addedToGroupContact.getLastname()).withMobilephone(addedToGroupContact.getMobilephone()).
+               // withWorkphone(addedToGroupContact.getWorkphone()).withHomephone(addedToGroupContact.getHomephone()).
+               // withAddress(addedToGroupContact.getAddress()).withEmail(addedToGroupContact.getEmail()).
+              //  withEmail2(addedToGroupContact.getEmail2()).withEmail3(addedToGroupContact.getEmail3()).inGroup(addedGroup);
+        //Groups beforeGroups = contact.getGroups();
+        //Groups beforeGroups = app.db().contacts().stream().filter((m) ->m.withId(addedToGroupContact.getId())).equals(addedToGroupContact.getId())
+      /*  for(ContactData c: before){
+            if (c.getGroups()==addedToGroupContact.getGroups()){
+                addedToGroupContact = before.iterator().next();
+            }
+        }
 
-    }
-}
+        System.out.println(beforeGroups);
+        app.goTo().homePage();
+        app.contact().addContactToGroup(addedToGroupContact, addedGroupName);
+        Groups afterGroups = addedToGroupContact.getGroups();
+        System.out.println(afterGroups);
+      //  assertThat(afterGroups, equalTo(beforeGroups.add(addedGroup)));*/
+
+
+

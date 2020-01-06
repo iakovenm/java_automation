@@ -3,8 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/addressbook-web-tests.iml" filepath="$PROJECT_DIR$/.idea/modules/addressbook-web-tests.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/addressbook-web-tests.main.iml" filepath="$PROJECT_DIR$/.idea/modules/addressbook-web-tests.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/addressbook-web-tests.test.iml" filepath="$PROJECT_DIR$/.idea/modules/addressbook-web-tests.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/java_automation.addressbook-web-tests.main.iml" filepath="$PROJECT_DIR$/.idea/modules/java_automation.addressbook-web-tests.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/java_automation.addressbook-web-tests.test.iml" filepath="$PROJECT_DIR$/.idea/modules/java_automation.addressbook-web-tests.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/java_automation.mantis-tests.main.iml" filepath="$PROJECT_DIR$/.idea/modules/java_automation.mantis-tests.main.iml" />
