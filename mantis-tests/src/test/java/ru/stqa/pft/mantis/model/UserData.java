@@ -18,7 +18,7 @@ public class UserData {
     @Column(name = "username")
     private String username;
     @Column(name ="email")
-    @Type(type ="longtext")
+    @Type(type ="text")
     private String email;
     @Column(name = "password")
     @Type(type = "text")
