@@ -17,8 +17,8 @@ public class UserData {
     private int id = Integer.MAX_VALUE;
     @Column(name = "username")
     private String username;
-    @Column(name = "email")
-    @Type(type = "text")
+    @Column(name ="email")
+    @Type(type ="longtext")
     private String email;
     @Column(name = "password")
     @Type(type = "text")

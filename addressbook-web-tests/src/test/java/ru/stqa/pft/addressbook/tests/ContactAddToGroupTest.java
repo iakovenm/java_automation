@@ -7,13 +7,8 @@ import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
-
 
 public class ContactAddToGroupTest extends TestBase {
 
@@ -34,14 +29,19 @@ public class ContactAddToGroupTest extends TestBase {
             app.group().create(new GroupData().withName("test1").withHeader("header").withFooter("footer"));
             return;
         }
+       int count=0;
         for (ContactData c: contacts) {
         if (c.getGroups().size()<groups.size()){
-            return;
-        }else {
+            count++;
+            return;}
+        }
+
+        if (count==0) {
             app.goTo().groupPage();
-            app.group().create(new GroupData().withName("test2").withHeader("header").withFooter("footer"));
+            app.group().create(new GroupData().withName("test1").withHeader("header").withFooter("footer"));
+            return;
         }
-        }
+
 
          if (contacts.iterator().next().getGroups().contains(groups.iterator().next())) {
             for(ContactData contact:contacts){
@@ -62,31 +62,42 @@ public class ContactAddToGroupTest extends TestBase {
         GroupData addedGroup = new GroupData().withId(groups.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId()).withName(groups.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getName());
         String addedGroupName = addedGroup.getName();
         Contacts before = app.db().contacts();
-        //ContactData addedToGroupContact = before.stream().filter((m) ->m.inGroup(addedGroup)).findAny();
+       ContactData addedToGroupContact = before.stream().min((o1, o2) -> Integer.compare(o1.getGroups().size(), o2.getGroups().size())).get();
          //       withId(g.getId()).withFirstname(g.getFirstname()).withLastname(g.getLastname()).inGroup(g.getGroups().removeIf()).collect(Collectors.toSet())));
        //ContactData addedToGroupContact = before.iterator().next();
 
-        }
-       }
        // ContactData contact = new ContactData().withId(addedToGroupContact.getId()).withFirstname(addedToGroupContact.getFirstname()).
                // withLastname(addedToGroupContact.getLastname()).withMobilephone(addedToGroupContact.getMobilephone()).
                // withWorkphone(addedToGroupContact.getWorkphone()).withHomephone(addedToGroupContact.getHomephone()).
                // withAddress(addedToGroupContact.getAddress()).withEmail(addedToGroupContact.getEmail()).
               //  withEmail2(addedToGroupContact.getEmail2()).withEmail3(addedToGroupContact.getEmail3()).inGroup(addedGroup);
-        //Groups beforeGroups = contact.getGroups();
-        //Groups beforeGroups = app.db().contacts().stream().filter((m) ->m.withId(addedToGroupContact.getId())).equals(addedToGroupContact.getId())
-      /*  for(ContactData c: before){
-            if (c.getGroups()==addedToGroupContact.getGroups()){
-                addedToGroupContact = before.iterator().next();
+        for (ContactData c: before) {
+            if (c.getGroups().size()<groups.size()){
+                addedToGroupContact = c;
+
             }
         }
 
-        System.out.println(beforeGroups);
+            System.out.println(addedToGroupContact);
+            Groups beforeGroups = addedToGroupContact.getGroups();
+            for (ContactData d: before) {
+               if (d.getId()==addedToGroupContact.getId()){
+                   beforeGroups = d.getGroups();
+                }
+                }
+
+            System.out.println(beforeGroups);
         app.goTo().homePage();
         app.contact().addContactToGroup(addedToGroupContact, addedGroupName);
         Groups afterGroups = addedToGroupContact.getGroups();
+            for (ContactData d: before) {
+                if(d.getId()==addedToGroupContact.getId()){
+                    afterGroups = d.getGroups();
+                }
+            }
         System.out.println(afterGroups);
-      //  assertThat(afterGroups, equalTo(beforeGroups.add(addedGroup)));*/
+            System.out.println(beforeGroups.withAdded(addedGroup));
+           assertThat(afterGroups, equalTo(beforeGroups.withAdded(addedGroup)));}}
 
 
 

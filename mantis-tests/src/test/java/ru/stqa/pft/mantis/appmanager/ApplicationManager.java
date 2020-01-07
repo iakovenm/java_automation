@@ -97,7 +97,8 @@ public class ApplicationManager {
         return jamesHelper;
     }
     public DbHelper db() {
-        return dbHelper;
+       if (dbHelper==null){
+        dbHelper = new DbHelper(this);
     }
-
-}
+        return dbHelper;
+}}

@@ -24,12 +24,12 @@ public class ResetPasswordHelper extends HelperBase {
        // click(cssSelector("input[value='Signup']"));
     }
 
-    public void finish(String confirmationLink){
+    public void finish(String confirmationLink, String realname, String password){
             //, String password) {
         wd.get(confirmationLink);
-        //type(name("password"),password);
-        //type(name("password_confirm"),password);
-        //click(By.cssSelector("span[value='Update User']"));
-       // click(cssSelector("button[type='submit']"));
+        type(name("realname"),realname);
+        type(name("password"),password);
+        type(name("password_confirm"),password);
+       click(cssSelector("button[type='submit']"));
     }
 }

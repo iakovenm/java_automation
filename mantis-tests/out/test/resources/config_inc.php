@@ -9,6 +9,6 @@ $g_db_table_suffix          = 'mantis';
 $g_default_timezone       = 'Europe/Berlin';
 $g_crypto_master_salt     = 'Gf/pqh9n93mNkB9DO3pZydoE6AKxdn5mNkblE/Xrfsk=';
 $g_signup_use_captcha     = OFF;
-$g_phpmailer_method       = 'PHPMAILER_METHOD_SMTP';
+$g_phpmailer_method       = PHPMAILER_METHOD_SMTP;
 $g_smpt_host              = 'localhost';
 
