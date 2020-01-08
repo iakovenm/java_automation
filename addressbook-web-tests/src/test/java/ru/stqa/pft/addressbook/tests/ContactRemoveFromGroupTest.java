@@ -44,21 +44,27 @@ public class ContactRemoveFromGroupTest extends TestBase {
         GroupData removedGroup = groups.iterator().next();
         String removedGroupName = removedGroup.getName();
         Contacts before = app.db().contacts();
-        ContactData addedToGroupContact = before.iterator().next();
-        for(ContactData c: before){
-            if (addedToGroupContact.getGroups().contains(removedGroup)){
-            }else{         before.iterator().next();
+        ContactData addedToGroupContact = before.stream().max((o1, o2) -> Integer.compare(o1.getGroups().size(), o2.getGroups().size())).get();
+        for (ContactData c: before) {
+            int i=0;
+            if (c.getGroups().size()==groups.size()){
+                addedToGroupContact = c;
+                i++;
+            } if (i>0){
+                break;
             }
         }
-        ContactData contact = new ContactData().withId(addedToGroupContact.getId()).withFirstname(addedToGroupContact.getFirstname()).
-                withLastname(addedToGroupContact.getLastname()).withMobilephone(addedToGroupContact.getMobilephone()).
-                withWorkphone(addedToGroupContact.getWorkphone()).withHomephone(addedToGroupContact.getHomephone()).
-                withAddress(addedToGroupContact.getAddress()).withEmail(addedToGroupContact.getEmail()).
-                withEmail2(addedToGroupContact.getEmail2()).withEmail3(addedToGroupContact.getEmail3()).inGroup(removedGroup);
-        Groups beforeGroups = contact.getGroups();
+
+        Groups beforeGroups = addedToGroupContact.getGroups();
         app.goTo().homePage();
-        app.contact().removeContactFromGroup(contact, removedGroupName);
-        Groups afterGroups = contact.getGroups();
+        app.contact().removeContactFromGroup(addedToGroupContact, removedGroupName);
+        Contacts after = app.db().contacts();
+        for (ContactData d: after) {
+            if(d.getId()==addedToGroupContact.getId()){
+                addedToGroupContact=d;
+            }
+        }
+        Groups afterGroups = addedToGroupContact.getGroups();
         assertThat(afterGroups, equalTo(beforeGroups));
     }
 }

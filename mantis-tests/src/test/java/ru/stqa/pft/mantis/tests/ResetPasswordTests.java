@@ -1,6 +1,7 @@
 package ru.stqa.pft.mantis.tests;
 
 import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.lanwen.verbalregex.VerbalExpression;
@@ -27,18 +28,21 @@ public void testResetPassword() throws IOException, javax.mail.MessagingExceptio
          withPassword(allUsers.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getPassword());
     String email = user.getEmail();
    String username= user.getUsername();
-   // String username= "user88";
-   // String email ="user88@localhost.localdomain";
    int userId = user.getId();
     String adminLogin ="administrator";
     String adminPassword = "root";
     String userPassword = "password";
     String userRealname = "realname";
-    //app.james().createUser(user,password);
     app.resetPassword().start(adminLogin,adminPassword,userId);
     List<MailMessage> mailMessages = app.mail().waitForMail(1, 40000);
     String confirmationLink = findConfirmationLink(mailMessages, email);
    app.resetPassword().finish(confirmationLink,userRealname,userPassword);
+    HashSet< UserData> allUsersAfter = app.db().users();
+    for (UserData u: allUsersAfter) {
+        if (u.getId()==userId){
+            username =u.getUsername();
+        }
+    }
     assertTrue(app.newSession().login(username,userPassword));
 }
     private String findConfirmationLink(List<MailMessage> mailMessages, String email) {
@@ -46,4 +50,8 @@ public void testResetPassword() throws IOException, javax.mail.MessagingExceptio
         VerbalExpression regex = VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
         return regex.getText(mailMessage.text);
     }
-}
+
+    @AfterMethod(alwaysRun = true)
+    public void stopMailServer(){
+        app.mail().stop();
+}}

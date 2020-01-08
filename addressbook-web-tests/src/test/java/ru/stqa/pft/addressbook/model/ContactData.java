@@ -63,6 +63,24 @@ public class ContactData {
 
 
     @Override
+    public String toString() {
+        return "ContactData{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", mobilephone='" + mobilephone + '\'' +
+                ", homephone='" + homephone + '\'' +
+                ", workphone='" + workphone + '\'' +
+                ", address='" + address + '\'' +
+                ", email='" + email + '\'' +
+                ", email2='" + email2 + '\'' +
+                ", email3='" + email3 + '\'' +
+                ", photo='" + photo + '\'' +
+                ", groups=" + groups +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -76,14 +94,14 @@ public class ContactData {
                 Objects.equals(address, that.address) &&
                 Objects.equals(email, that.email) &&
                 Objects.equals(email2, that.email2) &&
-                Objects.equals(email3, that.email3);
+                Objects.equals(email3, that.email3) &&
+                Objects.equals(groups, that.groups);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstname, lastname, mobilephone, homephone, workphone, address, email, email2, email3);
+        return Objects.hash(id, firstname, lastname, mobilephone, homephone, workphone, address, email, email2, email3, groups);
     }
-
 
     public File getPhoto() {
         return new File (photo);
@@ -211,22 +229,6 @@ public class ContactData {
     public ContactData withEmail3(String email3) {
         this.email3 = email3;
         return this;
-    }
-
-    @Override
-    public String toString() {
-        return "ContactData{" +
-                "id=" + id +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", mobilephone='" + mobilephone + '\'' +
-                ", homephone='" + homephone + '\'' +
-                ", workphone='" + workphone + '\'' +
-                ", address='" + address + '\'' +
-                ", email='" + email + '\'' +
-                ", email2='" + email2 + '\'' +
-                ", email3='" + email3 + '\'' +
-                '}';
     }
 
     public ContactData inGroup(GroupData group){
