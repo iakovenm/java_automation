@@ -4,12 +4,12 @@
     <bytecodeTargetLevel>
       <module name="addressbook-web-tests.main" target="1.8" />
       <module name="addressbook-web-tests.test" target="1.8" />
-      <module name="java_automation.addressbook-web-tests.main" target="1.8" />
-      <module name="java_automation.addressbook-web-tests.test" target="1.8" />
-      <module name="java_automation.mantis-tests.main" target="1.8" />
-      <module name="java_automation.mantis-tests.test" target="1.8" />
-      <module name="java_automation.sandbox.main" target="1.8" />
-      <module name="java_automation.sandbox.test" target="1.8" />
+      <module name="java_automation.addressbook-web-tests.main" target="13" />
+      <module name="java_automation.addressbook-web-tests.test" target="13" />
+      <module name="java_automation.mantis-tests.main" target="13" />
+      <module name="java_automation.mantis-tests.test" target="13" />
+      <module name="java_automation.sandbox.main" target="13" />
+      <module name="java_automation.sandbox.test" target="13" />
       <module name="mantis-tests.main" target="1.8" />
       <module name="mantis-tests.test" target="1.8" />
       <module name="matis-tests.main" target="1.8" />
@@ -19,5 +19,10 @@
       <module name="sandbox_main" target="1.8" />
       <module name="sandbox_test" target="1.8" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="java_automation.mantis-tests.test" options="--add-exports=java.xml/com.sun.org.apache.xpath.internal.objects=ALL-UNNAMED" />
+    </option>
   </component>
 </project>

@@ -14,8 +14,11 @@ public class ContactRemoveFromGroupTest extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
+        long now = System.currentTimeMillis();
         Groups groups = app.db().groups();
         Contacts contacts = app.db().contacts();
+      String group=app.db().groups().iterator().next().getName();
+        ContactData contact = app.db().contacts().iterator().next();
         if (contacts.size() == 0) {
             app.goTo().homePage();
             app.contact().create(new ContactData().withFirstname("Olga").withLastname("sharko").
@@ -25,29 +28,32 @@ public class ContactRemoveFromGroupTest extends TestBase {
         }
         if (groups.size() == 0) {
             app.goTo().groupPage();
-            app.group().create(new GroupData().withName("test1").withHeader("header").withFooter("footer"));
-        } else if (!contacts.iterator().next().getGroups().contains(groups.iterator().next())) {
-            for(ContactData contact:contacts){
-                if(contact.getGroups().contains((groups.iterator().next()))){
-                    return;
-                }
-            }
-            app.goTo().groupPage();
-            app.group().create((new GroupData().withName("test5").withHeader("header").withFooter("footer")));
-
+            app.group().create(new GroupData().withName(String.format("group%s",now)).withHeader("header").withFooter("footer"));
+            return;
         }
+        int count=0;
+        for (ContactData c: contacts) {
+         if (c.getGroups().size() == 0) {
+                count++;
+            }
+        }
+        if (count==contacts.size()) {
+            app.goTo().homePage();
+            app.contact().addContactToGroup(contact, group);
+        }
+
     }
 
     @Test
     public void testContactRemoveFromGroup() {
         Groups groups = app.db().groups();
-        GroupData removedGroup = groups.iterator().next();
-        String removedGroupName = removedGroup.getName();
+        GroupData removedGroup = groups.iterator().next();// String removedGroupName = removedGroup.getName();
+        int removedGroupId = removedGroup.getId();
         Contacts before = app.db().contacts();
         ContactData addedToGroupContact = before.stream().max((o1, o2) -> Integer.compare(o1.getGroups().size(), o2.getGroups().size())).get();
         for (ContactData c: before) {
             int i=0;
-            if (c.getGroups().size()==groups.size()){
+            if (c.getGroups().size()>0){
                 addedToGroupContact = c;
                 i++;
             } if (i>0){
@@ -57,7 +63,7 @@ public class ContactRemoveFromGroupTest extends TestBase {
 
         Groups beforeGroups = addedToGroupContact.getGroups();
         app.goTo().homePage();
-        app.contact().removeContactFromGroup(addedToGroupContact, removedGroupName);
+        app.contact().removeContactFromGroup(addedToGroupContact, removedGroupId);
         Contacts after = app.db().contacts();
         for (ContactData d: after) {
             if(d.getId()==addedToGroupContact.getId()){
@@ -65,6 +71,6 @@ public class ContactRemoveFromGroupTest extends TestBase {
             }
         }
         Groups afterGroups = addedToGroupContact.getGroups();
-        assertThat(afterGroups, equalTo(beforeGroups));
+        assertThat(afterGroups, equalTo((beforeGroups).without(removedGroup)));
     }
 }

@@ -33,13 +33,11 @@ public class ContactAddToGroupTest extends TestBase {
         for (ContactData c: contacts) {
         if (c.getGroups().size()<groups.size()){
             count++;
-            return;}
+           }
         }
-
         if (count==0) {
             app.goTo().groupPage();
             app.group().create(new GroupData().withName(String.format("group%s",now)).withHeader("header").withFooter("footer"));
-            return;
         }
 
 

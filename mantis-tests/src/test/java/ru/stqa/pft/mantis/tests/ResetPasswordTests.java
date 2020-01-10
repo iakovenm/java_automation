@@ -1,6 +1,5 @@
 package ru.stqa.pft.mantis.tests;
 
-import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -8,6 +7,7 @@ import ru.lanwen.verbalregex.VerbalExpression;
 import ru.stqa.pft.mantis.model.MailMessage;
 import ru.stqa.pft.mantis.model.UserData;
 
+import javax.mail.MessagingException;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
@@ -15,17 +15,30 @@ import java.util.List;
 import static org.testng.Assert.assertTrue;
 
 public class ResetPasswordTests extends TestBase {
-
+    
     @BeforeMethod
     public void startMailServer() {
         app.mail().start();
     }
+    @BeforeMethod
+    public void ensurePreconditions() {
+        HashSet< UserData> allUsers = app.db().users();
+        UserData user = app.db().users().iterator().next();
+        for  ( UserData u:allUsers) {
+            if (u.getId()!=1){
+                u = user;
+            }
+        }
+
+    }
+
 @Test
 public void testResetPassword() throws IOException, javax.mail.MessagingException, MessagingException {
    HashSet< UserData> allUsers = app.db().users();
-  UserData user = new UserData().withId(allUsers.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId()).
-          withEmail(allUsers.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getEmail()).
-         withPassword(allUsers.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getPassword());
+  //UserData user = new UserData().withId(allUsers.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId()).
+         // withEmail(allUsers.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getEmail()).
+         //withPassword(allUsers.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getPassword());
+    UserData user = app.db().users().iterator().next();
     String email = user.getEmail();
    String username= user.getUsername();
    int userId = user.getId();

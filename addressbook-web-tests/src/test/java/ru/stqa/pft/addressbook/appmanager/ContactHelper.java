@@ -51,7 +51,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public void selectContactById(int id) {
-        click(By.cssSelector("td.center input[value='" + id + "']"));
+       click(By.cssSelector("td.center input[value='" + id + "']"));
     }
 
     public void returnToHomePage() {
@@ -71,9 +71,11 @@ public class ContactHelper extends HelperBase {
         click(By.name("add"));
     }
 
-    private void removeFromGroup(ContactData contactData, String group) {
-        new Select(wd.findElement(By.name("group"))).
-                selectByVisibleText(group);
+    private void removeFromGroup(ContactData contact, int id) {
+        wd.findElement(By.name("group")).click();
+        click(By.cssSelector("option[value='"+id+"']"));
+        selectContactById(contact.getId());
+       // new Select(wd.findElement(By.cssSelector("option[value='"+id+"']"))).getOptions();
         click(By.name("remove"));
 
     }
@@ -161,9 +163,8 @@ public class ContactHelper extends HelperBase {
         contactCache = null;
     }
 
-    public void removeContactFromGroup(ContactData contact, String group) {
-        selectContactById(contact.getId());
-        removeFromGroup(contact, group);
+    public void removeContactFromGroup(ContactData contact, int id) {
+        removeFromGroup(contact,id);
         contactCache = null;
     }
 }
