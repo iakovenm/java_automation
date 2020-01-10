@@ -15,30 +15,23 @@ import java.util.List;
 import static org.testng.Assert.assertTrue;
 
 public class ResetPasswordTests extends TestBase {
-    
+
     @BeforeMethod
     public void startMailServer() {
         app.mail().start();
     }
-    @BeforeMethod
-    public void ensurePreconditions() {
-        HashSet< UserData> allUsers = app.db().users();
-        UserData user = app.db().users().iterator().next();
-        for  ( UserData u:allUsers) {
-            if (u.getId()!=1){
-                u = user;
-            }
-        }
 
-    }
 
 @Test
 public void testResetPassword() throws IOException, javax.mail.MessagingException, MessagingException {
    HashSet< UserData> allUsers = app.db().users();
-  //UserData user = new UserData().withId(allUsers.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId()).
-         // withEmail(allUsers.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getEmail()).
-         //withPassword(allUsers.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getPassword());
-    UserData user = app.db().users().iterator().next();
+    UserData user = new UserData();
+        for  ( UserData u:allUsers) {
+        if (u.getId()!=1){
+            user=u;
+            break;
+        }
+    }
     String email = user.getEmail();
    String username= user.getUsername();
    int userId = user.getId();

@@ -2,13 +2,16 @@ package ru.stqa.pft.mantis.appmanager;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.BrowserType;
 
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -23,6 +26,7 @@ public class ApplicationManager {
     private JamesHelper jamesHelper;
     private ResetPasswordHelper resetPasswordHelper;
     private DbHelper dbHelper;
+
 
 
     public ApplicationManager(String browser){
@@ -70,11 +74,16 @@ public class ApplicationManager {
     }
 
     public WebDriver getDriver() {
+        HashMap<String, String> prefs = new HashMap<String, String>();
+        ChromeOptions options = new ChromeOptions();
+        prefs.put("intl.accept_languages", "en-EN,en");
+        options.setExperimentalOption("prefs", prefs);
+
         if(wd==null){
             if (browser.equals(BrowserType.FIREFOX)) {
                 wd = new FirefoxDriver();
             } else if (browser.equals(BrowserType.CHROME)) {
-                wd = new ChromeDriver();
+                wd = new ChromeDriver(options);
             } else if (browser.equals(BrowserType.IE)) {
                 wd = new InternetExplorerDriver();
             }
