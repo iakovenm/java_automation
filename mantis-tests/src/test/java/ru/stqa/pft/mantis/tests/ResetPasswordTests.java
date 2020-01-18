@@ -8,6 +8,7 @@ import ru.stqa.pft.mantis.model.MailMessage;
 import ru.stqa.pft.mantis.model.UserData;
 
 import javax.mail.MessagingException;
+import javax.xml.rpc.ServiceException;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
@@ -23,7 +24,7 @@ public class ResetPasswordTests extends TestBase {
 
 
 @Test
-public void testResetPassword() throws IOException, javax.mail.MessagingException, MessagingException {
+public void testResetPassword() throws IOException, javax.mail.MessagingException, MessagingException, ServiceException {
    HashSet< UserData> allUsers = app.db().users();
     UserData user = new UserData();
         for  ( UserData u:allUsers) {
