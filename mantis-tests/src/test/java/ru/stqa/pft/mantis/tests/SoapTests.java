@@ -1,5 +1,6 @@
 package ru.stqa.pft.mantis.tests;
 
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.mantis.model.Issue;
