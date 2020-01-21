@@ -30,6 +30,7 @@ public class TestBase {
         IssueData issue = app.soap().getIssue(issueId);
         String status = issue.getStatus().getName();
         if (status!="closed"){
+        return true;
 
         } return false;
     }*/
@@ -40,6 +41,7 @@ public class TestBase {
         //return parsed.getAsJsonObject().get("issue_id").getAsInt();
         String status = parsed.getAsJsonObject().get("status").getAsString();
         if (status!="closed"){
+            return true;
 
         } return false;
     }
