@@ -24,14 +24,13 @@ public class RestHelper {
 
     private Set<Issue> getIssues() throws IOException {
         // String json= getExecutor().execute(Request.Get("http://bugify.stqa.ru/api/issues.json")).returnContent().asString();
-        String json=RestAssured.get(" http://bugify.stqa.ru/api/issues.json").asString();
-
+        String json=RestAssured.get(" http://bugify.stqa.ru/api/issues/.json").asString();
         JsonElement parsed = new JsonParser().parse(json);
         JsonElement issues = parsed.getAsJsonObject().get("issues");
         return new Gson().fromJson(issues,  new TypeToken<Set<Issue>>(){}.getType());
     }
 
-    public Issue getIssue(int issueId) throws IOException {
+   /* public Issue getIssue(int issueId) throws IOException {
       Set <Issue> issues = getIssues();
       Issue issue = issues.iterator().next();
       for (Issue i: issues) {
@@ -40,6 +39,6 @@ public class RestHelper {
           }
         }
         return issue;
-    }
+    }*/
 
 }

@@ -27,12 +27,12 @@ public class SoapHelper {
                 withId(p.getId().intValue()).withName(p.getName())).collect(Collectors.toSet());
     }
 
-    public IssueData getIssue(int issueId) throws RemoteException, MalformedURLException, ServiceException {
+    /*public IssueData getIssue(int issueId) throws RemoteException, MalformedURLException, ServiceException {
         MantisConnectPortType mc = getMantisConnect();
         IssueData issue = mc.mc_issue_get("administrator", "root",BigInteger.valueOf(issueId));
         return issue;
     }
-
+*/
 
 
     private MantisConnectPortType getMantisConnect() throws ServiceException, MalformedURLException {

@@ -3,6 +3,9 @@ package ru.stqa.pft.mantis.tests;
 import biz.futureware.mantis.rpc.soap.client.*;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.jayway.restassured.RestAssured;
+import org.apache.http.client.fluent.Executor;
+import org.apache.http.client.fluent.Request;
 import org.openqa.selenium.remote.BrowserType;
 import org.testng.SkipException;
 import org.testng.annotations.AfterSuite;
@@ -26,27 +29,30 @@ public class TestBase {
     protected static final ApplicationManager app =
             new ApplicationManager(System.getProperty("browser", BrowserType.CHROME));
 
-   /* boolean isIssueOpen(int issueId) throws MalformedURLException, ServiceException, RemoteException {
-        IssueData issue = app.soap().getIssue(issueId);
-        String status = issue.getStatus().getName();
-        if (status!="closed"){
-        return true;
-
-        } return false;
-    }*/
-
-    boolean isIssueOpen(int issueId) throws IOException, ServiceException {
-        Issue issue = app.rest().getIssue(issueId);
-        JsonElement parsed = new JsonParser().parse(String.valueOf(issue));
-        //return parsed.getAsJsonObject().get("issue_id").getAsInt();
-        String status = parsed.getAsJsonObject().get("status").getAsString();
-        if (status!="closed"){
-            return true;
-
-        } return false;
+    private MantisConnectPortType getMantisConnect() throws ServiceException, MalformedURLException {
+        return new MantisConnectLocator().
+                getMantisConnectPort(new URL(app.getProperty("soap.url")));
     }
 
+ boolean isIssueOpen(int issueId) throws MalformedURLException, ServiceException, RemoteException {
+        MantisConnectPortType mc = getMantisConnect();
+        IssueData issue = mc.mc_issue_get("administrator", "root",BigInteger.valueOf(issueId));
+        String status = issue.getStatus().getName();
+        if (status.equals("closed")){
+        return false;
 
+        } return true;
+    }
+    private Executor getExecutor() {
+        return Executor.newInstance().auth("288f44776e7bec4bf44fdfeb1e646490", "");}
+    /*boolean isIssueOpen(int issueId) throws IOException, ServiceException {
+        String json= getExecutor().execute(Request.Get(String.format("http://bugify.stqa.ru/api/issues/%s.json",issueId))).returnContent().asString();
+        JsonElement parsed = new JsonParser().parse(json);
+        String status = parsed.getAsJsonObject().get("status").getAsString();
+        if (status.equals("closed")){
+            return false;
+        } return true;
+    }*/
 
     @BeforeSuite(alwaysRun = true)
     public void setUp() throws Exception {

@@ -1,7 +1,6 @@
 <component name="libraryTable">
   <library name="Gradle: org.seleniumhq.selenium:selenium-json:4.0.0-alpha-3">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.seleniumhq.selenium/selenium-json/4.0.0-alpha-3/17afddd52d686a8b3620083e3f5ae209602c2da9/selenium-json-4.0.0-alpha-3.jar!/" />
       <root url="jar://C:/gradle-6.0.1-bin/gradle-6.0.1/caches/modules-2/files-2.1/org.seleniumhq.selenium/selenium-json/4.0.0-alpha-3/17afddd52d686a8b3620083e3f5ae209602c2da9/selenium-json-4.0.0-alpha-3.jar!/" />
     </CLASSES>
     <JAVADOC />

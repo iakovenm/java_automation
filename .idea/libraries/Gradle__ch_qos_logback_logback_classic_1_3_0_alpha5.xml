@@ -1,7 +1,6 @@
 <component name="libraryTable">
   <library name="Gradle: ch.qos.logback:logback-classic:1.3.0-alpha5">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.3.0-alpha5/3195156aa3b62b2f4407a7841700f2759bebf192/logback-classic-1.3.0-alpha5.jar!/" />
       <root url="jar://C:/gradle-6.0.1-bin/gradle-6.0.1/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.3.0-alpha5/3195156aa3b62b2f4407a7841700f2759bebf192/logback-classic-1.3.0-alpha5.jar!/" />
     </CLASSES>
     <JAVADOC />
