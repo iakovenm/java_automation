@@ -34,7 +34,7 @@ public class TestBase {
                 getMantisConnectPort(new URL(app.getProperty("soap.url")));
     }
 
- boolean isIssueOpen(int issueId) throws MalformedURLException, ServiceException, RemoteException {
+ /*boolean isIssueOpen(int issueId) throws MalformedURLException, ServiceException, RemoteException {
         MantisConnectPortType mc = getMantisConnect();
         IssueData issue = mc.mc_issue_get("administrator", "root",BigInteger.valueOf(issueId));
         String status = issue.getStatus().getName();
@@ -42,17 +42,17 @@ public class TestBase {
         return false;
 
         } return true;
-    }
+    }*/
     private Executor getExecutor() {
         return Executor.newInstance().auth("288f44776e7bec4bf44fdfeb1e646490", "");}
-    /*boolean isIssueOpen(int issueId) throws IOException, ServiceException {
+    boolean isIssueOpen(int issueId) throws IOException, ServiceException {
         String json= getExecutor().execute(Request.Get(String.format("http://bugify.stqa.ru/api/issues/%s.json",issueId))).returnContent().asString();
         JsonElement parsed = new JsonParser().parse(json);
-        String status = parsed.getAsJsonObject().get("status").getAsString();
+        String status = parsed.getAsJsonObject().get("state_name").getAsString();
         if (status.equals("closed")){
             return false;
         } return true;
-    }*/
+    }
 
     @BeforeSuite(alwaysRun = true)
     public void setUp() throws Exception {
