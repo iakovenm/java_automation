@@ -48,8 +48,9 @@ public class TestBase {
     boolean isIssueOpen(int issueId) throws IOException, ServiceException {
         String json= getExecutor().execute(Request.Get(String.format("http://bugify.stqa.ru/api/issues/%s.json",issueId))).returnContent().asString();
         JsonElement parsed = new JsonParser().parse(json);
-        String status = parsed.getAsJsonObject().get("state_name").getAsString();
-        if (status.equals("closed")){
+        JsonElement parsedFirstelement= parsed.getAsJsonObject().get("issues");
+        String state=parsedFirstelement.getAsJsonObject().get("state_name").getAsString();
+        if (state.equals("closed")){
             return false;
         } return true;
     }
