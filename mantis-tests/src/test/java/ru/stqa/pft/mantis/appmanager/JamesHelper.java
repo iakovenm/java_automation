@@ -1,6 +1,5 @@
 package ru.stqa.pft.mantis.appmanager;
 
-import com.sun.org.apache.xpath.internal.objects.XString;
 import org.apache.commons.net.telnet.TelnetClient;
 import ru.stqa.pft.mantis.model.MailMessage;
 

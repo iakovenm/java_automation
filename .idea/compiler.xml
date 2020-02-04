@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="addressbook-web-tests.main" target="11" />
+      <module name="addressbook-web-tests.test" target="11" />
+      <module name="github-sample.main" target="11" />
+      <module name="github-sample.test" target="11" />
+      <module name="mantis-tests.main" target="11" />
+      <module name="mantis-tests.test" target="11" />
+      <module name="rest-sample.main" target="11" />
+      <module name="rest-sample.test" target="11" />
+      <module name="sandbox.main" target="11" />
+      <module name="sandbox.test" target="11" />
+    </bytecodeTargetLevel>
+  </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="IdeaProjects.java_automation.mantis-tests.test" options="--add-exports=java.xml/com.sun.org.apache.xpath.internal.objects=ALL-UNNAMED" />
