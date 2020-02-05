@@ -49,7 +49,7 @@ public class TestBase {
         String json= getExecutor().execute(Request.Get(String.format("http://bugify.stqa.ru/api/issues/%s.json",issueId))).returnContent().asString();
         JsonElement parsed = new JsonParser().parse(json);
         JsonElement parsedFirstelement= parsed.getAsJsonObject().get("issues");
-        String state=parsedFirstelement.getAsJsonArray().get(Integer.parseInt("state_name")).getAsString();
+        String state=parsedFirstelement.getAsJsonArray().get(0).getAsJsonObject().get("state_name").getAsString();
         if (state.equals("closed")){
             return false;
         } return true;
